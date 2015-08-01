@@ -32,4 +32,20 @@
         android:src="@drawable/ic_share_white_24dp"
         app:backgroundTint="@color/blue_accent200"
         app:borderWidth="0dp" />
+
+    <io.codetail.widget.RevealFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/footer"
+            android:background="@color/blue_accent200"
+            android:visibility="invisible">
+
+        </android.support.v7.widget.Toolbar>
+
+    </io.codetail.widget.RevealFrameLayout>
 </RelativeLayout>

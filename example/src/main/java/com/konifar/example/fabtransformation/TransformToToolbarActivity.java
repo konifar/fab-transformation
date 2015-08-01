@@ -2,8 +2,20 @@ package com.konifar.example.fabtransformation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
+
+import com.konifar.fab_transformation.FabTransformation;
+
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class TransformToToolbarActivity extends BaseActivity {
+
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
+    @InjectView(R.id.toolbar_footer)
+    View toolbarFooter;
 
     public static void start(Context context, String title) {
         Intent intent = new Intent(context, TransformToToolbarActivity.class);
@@ -19,5 +31,12 @@ public class TransformToToolbarActivity extends BaseActivity {
     @Override
     protected void initView() {
         //
+    }
+
+    @OnClick(R.id.fab)
+    void onClickFab() {
+        if (fab.getVisibility() == View.VISIBLE) {
+            FabTransformation.transformIn(fab, toolbarFooter);
+        }
     }
 }
