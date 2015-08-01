@@ -32,6 +32,10 @@ android.libraryVariants.all { variant ->
     }
 }
 
+dependencies {
+    compile 'com.nineoldandroids:library:2.4.0+'
+}
+
 apply from: 'android-artifacts.gradle'
 apply from: 'central-publish.gradle'
 apply from: 'bintray-publish.gradle'

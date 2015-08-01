@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/theme500</item>
+        <item name="colorPrimaryDark">@color/theme600</item>
+        <item name="colorAccent">@color/accent200</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorControlNormal">@color/grey200</item>
+        <item name="colorControlActivated">@color/theme600</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+</resources>

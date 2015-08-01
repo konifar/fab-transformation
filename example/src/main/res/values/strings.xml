@@ -1,6 +1,13 @@
 <resources>
-  <string name="app_name">FabTransformation</string>
+    <string name="app_name">FabTransformation</string>
 
-  <string name="hello_world">Hello world!</string>
-  <string name="action_settings">Settings</string>
+    <string name="spec_link">Design Guideline</string>
+
+    <string name="title_sheet">To Sheet</string>
+    <string name="title_toolbar">To Toolbar</string>
+
+    <string name="description_sheet">Transform to Sheet</string>
+    <string name="description_toolbar">Transform to Toolbar</string>
+
+    <string name="activity_transition_mills">200</string>
 </resources>
