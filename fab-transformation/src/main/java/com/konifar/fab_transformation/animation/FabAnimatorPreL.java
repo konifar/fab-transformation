@@ -13,7 +13,7 @@ import io.codetail.animation.ViewAnimationUtils;
 public class FabAnimatorPreL extends FabAnimator {
 
     @Override
-    final void revealOut(final View fab, final View transformView, final RevealCallback callback) {
+    final void revealOff(final View fab, final View transformView, final RevealCallback callback) {
         SupportAnimator animator = ViewAnimationUtils.createCircularReveal(
                 transformView,
                 getCenterX(fab, transformView),
@@ -89,7 +89,7 @@ public class FabAnimatorPreL extends FabAnimator {
     }
 
     @Override
-    final void moveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
+    final void fabMoveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
         ViewPropertyAnimator.animate(fab)
                 .translationX(0)
                 .translationY(0)
@@ -120,7 +120,7 @@ public class FabAnimatorPreL extends FabAnimator {
     }
 
     @Override
-    final void moveIn(final View fab, final View transformView, final FabAnimationCallback callback) {
+    final void fabMoveIn(final View fab, final View transformView, final FabAnimationCallback callback) {
         ViewPropertyAnimator.animate(fab)
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))

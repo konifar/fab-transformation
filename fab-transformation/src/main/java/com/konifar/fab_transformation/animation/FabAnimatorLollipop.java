@@ -11,7 +11,7 @@ public class FabAnimatorLollipop extends FabAnimator {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    final void revealOut(final View fab, final View transformView, final RevealCallback callback) {
+    final void revealOff(final View fab, final View transformView, final RevealCallback callback) {
         Animator animator = ViewAnimationUtils.createCircularReveal(
                 transformView,
                 getCenterX(fab, transformView),
@@ -88,7 +88,7 @@ public class FabAnimatorLollipop extends FabAnimator {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
-    final void moveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
+    final void fabMoveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
         fab.animate()
                 .translationX(0)
                 .translationY(0)
@@ -120,7 +120,7 @@ public class FabAnimatorLollipop extends FabAnimator {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
-    final void moveIn(final View fab, View transformView, final FabAnimationCallback callback) {
+    final void fabMoveIn(final View fab, View transformView, final FabAnimationCallback callback) {
         fab.animate()
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))

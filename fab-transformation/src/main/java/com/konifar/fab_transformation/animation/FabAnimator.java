@@ -14,16 +14,16 @@ public abstract class FabAnimator {
     static final Interpolator REVEAL_INTERPOLATOR = new AccelerateInterpolator();
     static final Interpolator FAB_INTERPOLATOR = new AccelerateDecelerateInterpolator();
 
-    abstract void moveIn(View fab, View transformView, FabAnimationCallback callback);
+    abstract void fabMoveIn(View fab, View transformView, FabAnimationCallback callback);
 
-    abstract void moveOut(View fab, View transformView, FabAnimationCallback callback);
+    abstract void fabMoveOut(View fab, View transformView, FabAnimationCallback callback);
 
     abstract void revealOn(View fab, View transformView, RevealCallback callback);
 
-    abstract void revealOut(View fab, View transformView, RevealCallback callback);
+    abstract void revealOff(View fab, View transformView, RevealCallback callback);
 
     public void transformIn(final View fab, final View transformView) {
-        moveIn(fab, transformView, new FabAnimationCallback() {
+        fabMoveIn(fab, transformView, new FabAnimationCallback() {
             @Override
             public void onAnimationStart() {
                 //
@@ -57,14 +57,14 @@ public abstract class FabAnimator {
     }
 
     public void transformOut(final View fab, final View transformView) {
-        revealOut(fab, transformView, new RevealCallback() {
+        revealOff(fab, transformView, new RevealCallback() {
             @Override
             public void onRevealStart() {
             }
 
             @Override
             public void onRevealEnd() {
-                moveOut(fab, transformView, new FabAnimationCallback() {
+                fabMoveOut(fab, transformView, new FabAnimationCallback() {
                     @Override
                     public void onAnimationStart() {
                         fab.setVisibility(View.VISIBLE);
