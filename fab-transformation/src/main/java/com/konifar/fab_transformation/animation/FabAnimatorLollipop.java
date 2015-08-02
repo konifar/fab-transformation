@@ -1,6 +1,7 @@
 package com.konifar.fab_transformation.animation;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
@@ -149,6 +150,48 @@ public class FabAnimatorLollipop extends FabAnimator {
                     @Override
                     public void onAnimationRepeat(Animator animation) {
                         callback.onAnimationRepeat();
+                    }
+                })
+                .start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    void showOverlay(final View overlay) {
+        overlay.animate()
+                .alpha(1)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        overlay.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        //
+                    }
+                })
+                .start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    void hideOverlay(final View overlay) {
+        overlay.animate()
+                .alpha(0)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        //
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        overlay.setVisibility(View.GONE);
                     }
                 })
                 .start();

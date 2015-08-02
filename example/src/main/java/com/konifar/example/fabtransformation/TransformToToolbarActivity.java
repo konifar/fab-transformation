@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.ScrollView;
 
 import com.konifar.fab_transformation.FabTransformation;
 
@@ -16,6 +18,10 @@ public class TransformToToolbarActivity extends BaseActivity {
     FloatingActionButton fab;
     @InjectView(R.id.toolbar_footer)
     View toolbarFooter;
+    @InjectView(R.id.scroll_view)
+    ScrollView scrollView;
+
+    private boolean isTransforming;
 
     public static void start(Context context, String title) {
         Intent intent = new Intent(context, TransformToToolbarActivity.class);
@@ -30,7 +36,27 @@ public class TransformToToolbarActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        //
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(
+                new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if (fab.getVisibility() != View.VISIBLE && !isTransforming) {
+                            FabTransformation.with(fab)
+                                    .setListener(new FabTransformation.OnTransformListener() {
+                                        @Override
+                                        public void onStartTransform() {
+                                            isTransforming = true;
+                                        }
+
+                                        @Override
+                                        public void onEndTransform() {
+                                            isTransforming = false;
+                                        }
+                                    })
+                                    .transformOut(toolbarFooter);
+                        }
+                    }
+                });
     }
 
     @OnClick(R.id.fab)
@@ -45,5 +71,14 @@ public class TransformToToolbarActivity extends BaseActivity {
         if (fab.getVisibility() != View.VISIBLE) {
             FabTransformation.with(fab).transformOut(toolbarFooter);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fab.getVisibility() != View.VISIBLE) {
+            FabTransformation.with(fab).transformOut(toolbarFooter);
+            return;
+        }
+        super.onBackPressed();
     }
 }

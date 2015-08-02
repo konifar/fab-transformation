@@ -22,6 +22,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/black_alpha_30"
+        android:clickable="true"
+        android:visibility="gone" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FabMargin"

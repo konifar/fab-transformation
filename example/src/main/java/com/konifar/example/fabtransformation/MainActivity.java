@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity {
         List<SampleMenu> menuList = new ArrayList<>(2);
         menuList.add(new SampleMenu(getString(R.string.description_sheet), R.drawable.img_thumb_sheet));
         menuList.add(new SampleMenu(getString(R.string.description_toolbar), R.drawable.img_thumb_toolbar));
+        menuList.add(new SampleMenu(getString(R.string.description_player), R.drawable.img_thumb_player));
         return menuList;
     }
 
@@ -62,6 +63,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case 1:
                 TransformToToolbarActivity.start(this, sampleMenu.getTitle());
+                break;
+            case 2:
+                TransformToPlayerActivity.start(this, sampleMenu.getTitle());
                 break;
         }
     }
