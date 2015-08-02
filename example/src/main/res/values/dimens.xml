@@ -15,4 +15,5 @@
     <!-- Component -->
     <dimen name="img_thumb">60dp</dimen>
     <dimen name="img_thumb_large">120dp</dimen>
+    <dimen name="footer">64dp</dimen>
 </resources>
