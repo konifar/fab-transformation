@@ -24,6 +24,8 @@ android {
 dependencies {
     compile project(':fab-transformation')
     compile "com.android.support:appcompat-v7:${SUPPORT_PACKAGE_VERSION}"
+    compile "com.android.support:cardview-v7:${SUPPORT_PACKAGE_VERSION}"
+    compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.android.support:design:22.2.1'
     compile 'com.jakewharton:butterknife:6.1.0'
 }

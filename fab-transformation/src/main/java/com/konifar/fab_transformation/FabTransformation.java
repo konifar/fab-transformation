@@ -9,7 +9,8 @@ import com.konifar.fab_transformation.animation.FabAnimatorPreL;
 
 public class FabTransformation {
 
-    private final static boolean IS_PRE_LOLLIPOP = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+    private static final boolean IS_PRE_LOLLIPOP = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+    private static final long DEFAULT_DURATION = 300;
 
     public static Builder with(View fab) {
         return new Builder(fab);
@@ -17,34 +18,35 @@ public class FabTransformation {
 
     public static class Builder {
         private View fab;
-        private View transformView;
         private FabAnimator animator;
+        private long duration;
 
         public Builder(View fab) {
             this.fab = fab;
             this.animator = IS_PRE_LOLLIPOP ? new FabAnimatorPreL() : new FabAnimatorLollipop();
+            this.duration = DEFAULT_DURATION;
         }
 
-        public Builder setTransformView(View transformView) {
-            this.transformView = transformView;
+        public Builder duration(long millsecond) {
+            this.duration = millsecond;
             return this;
         }
 
-        public void transformIn() {
+        public void transformIn(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
             if (fab.getVisibility() == View.VISIBLE) {
-                animator.transformIn(fab, transformView);
+                animator.transformIn(fab, transformView, duration);
             }
         }
 
-        public void transformOut() {
+        public void transformOut(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
             if (fab.getVisibility() != View.VISIBLE) {
-                animator.transformOut(fab, transformView);
+                animator.transformOut(fab, transformView, duration);
             }
         }
     }

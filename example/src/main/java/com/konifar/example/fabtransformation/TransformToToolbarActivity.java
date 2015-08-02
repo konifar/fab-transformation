@@ -36,14 +36,14 @@ public class TransformToToolbarActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).setTransformView(toolbarFooter).transformIn();
+            FabTransformation.with(fab).transformIn(toolbarFooter);
         }
     }
 
     @OnClick(R.id.toolbar_footer)
     void onClickToolbarFooter() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).setTransformView(toolbarFooter).transformOut();
+            FabTransformation.with(fab).transformOut(toolbarFooter);
         }
     }
 }

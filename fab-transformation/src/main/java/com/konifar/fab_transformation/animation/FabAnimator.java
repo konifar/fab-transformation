@@ -1,18 +1,17 @@
 package com.konifar.fab_transformation.animation;
 
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-
-import com.konifar.fab_transformation.ViewUtil;
 
 public abstract class FabAnimator {
 
-    static final long FAB_ANIMATION_DURATION = 150L;
-    static final int REVEAL_ANIMATION_DURATION = 350;
-    static final Interpolator REVEAL_INTERPOLATOR = new AccelerateInterpolator();
-    static final Interpolator FAB_INTERPOLATOR = new AccelerateDecelerateInterpolator();
+    static final float FAB_SCALE = 1.2f;
+    static final Interpolator REVEAL_INTERPOLATOR = new DecelerateInterpolator();
+    static final Interpolator FAB_INTERPOLATOR = new AccelerateInterpolator();
+    private long fabAnimationDuration;
+    private long revealAnimationDuration;
 
     abstract void fabMoveIn(View fab, View transformView, FabAnimationCallback callback);
 
@@ -22,7 +21,28 @@ public abstract class FabAnimator {
 
     abstract void revealOff(View fab, View transformView, RevealCallback callback);
 
-    public void transformIn(final View fab, final View transformView) {
+    private void calculateDuration(View fab, View transformView, long duration) {
+        int fabTranslationX = getTranslationX(fab, transformView);
+        int fabTranslationY = getTranslationY(fab, transformView);
+
+        float maxFabTranslation = Math.max(Math.abs(fabTranslationX), Math.abs(fabTranslationY)) * 1.5f;
+        float maxTransformView = Math.max(Math.abs(transformView.getWidth()), Math.abs(transformView.getHeight()));
+
+        this.fabAnimationDuration = (long) (duration * (maxFabTranslation / (maxFabTranslation + maxTransformView)));
+        this.revealAnimationDuration = (long) (duration * (maxTransformView / (maxFabTranslation + maxTransformView)));
+    }
+
+    long getFabAnimationDuration() {
+        return fabAnimationDuration;
+    }
+
+    long getRevealAnimationDuration() {
+        return revealAnimationDuration;
+    }
+
+    public void transformIn(final View fab, final View transformView, long duration) {
+        calculateDuration(fab, transformView, duration);
+
         fabMoveIn(fab, transformView, new FabAnimationCallback() {
             @Override
             public void onAnimationStart() {
@@ -31,10 +51,11 @@ public abstract class FabAnimator {
 
             @Override
             public void onAnimationEnd() {
+                fab.setVisibility(View.INVISIBLE);
                 revealOn(fab, transformView, new RevealCallback() {
                     @Override
                     public void onRevealStart() {
-                        fab.setVisibility(View.INVISIBLE);
+                        //
                     }
 
                     @Override
@@ -56,10 +77,13 @@ public abstract class FabAnimator {
         });
     }
 
-    public void transformOut(final View fab, final View transformView) {
+    public void transformOut(final View fab, final View transformView, long duration) {
+        calculateDuration(fab, transformView, duration);
+
         revealOff(fab, transformView, new RevealCallback() {
             @Override
             public void onRevealStart() {
+                //
             }
 
             @Override
@@ -90,11 +114,13 @@ public abstract class FabAnimator {
     }
 
     int getCenterX(View fab, View transformView) {
-        return ViewUtil.getRelativeLeft(fab) - ViewUtil.getRelativeLeft(transformView) + fab.getWidth() / 2;
+        int translationX = getTranslationX(fab, transformView);
+        return ViewUtil.getRelativeLeft(fab) - ViewUtil.getRelativeLeft(transformView) + fab.getWidth() / 2 + translationX;
     }
 
     int getCenterY(View fab, View transformView) {
-        return ViewUtil.getRelativeTop(fab) - ViewUtil.getRelativeTop(transformView) + fab.getHeight() / 2;
+        int translationY = getTranslationY(fab, transformView);
+        return ViewUtil.getRelativeTop(fab) - ViewUtil.getRelativeTop(transformView) + fab.getHeight() / 2 + translationY;
     }
 
     int getTranslationX(View fab, View transformView) {
@@ -146,21 +172,21 @@ public abstract class FabAnimator {
         if (fabCenterY > transformViewCenterY) {
             // Fab is on below of transform view
             int translationY = transformViewCenterY - fabCenterY;
-            if (-translationY >= fabHeight / 2) {
-                translationY = -fabHeight / 2;
+            if (-translationY >= fabHeight / 8) {
+                translationY = -fabHeight / 8;
             }
             if (-translationY < fabBottom - transformViewBottom) {
-                translationY = -(fabBottom - transformViewBottom + fabHeight / 2);
+                translationY = -(fabBottom - transformViewBottom);
             }
             return translationY;
         } else if (fabCenterY < transformViewCenterY) {
             // Fab is on above of transform view
             int translationY = transformViewCenterY - fabCenterY;
-            if (translationY >= fabHeight / 2) {
-                translationY = fabHeight / 2;
+            if (translationY >= fabHeight / 8) {
+                translationY = fabHeight / 8;
             }
-            if (translationY > transformViewTop - fabTop) {
-                translationY = transformViewTop - fabTop + fabHeight / 2;
+            if (translationY < transformViewTop - fabTop) {
+                translationY = transformViewTop - fabTop;
             }
             return translationY;
         } else {
