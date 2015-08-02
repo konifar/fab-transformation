@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
 import io.codetail.animation.SupportAnimator;
@@ -148,6 +149,46 @@ public class FabAnimatorPreL extends FabAnimator {
                     @Override
                     public void onAnimationRepeat(Animator animation) {
                         callback.onAnimationRepeat();
+                    }
+                })
+                .start();
+    }
+
+    @Override
+    void showOverlay(final View overlay) {
+        ViewPropertyAnimator.animate(overlay)
+                .alpha(1)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        overlay.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        //
+                    }
+                })
+                .start();
+    }
+
+    @Override
+    void hideOverlay(final View overlay) {
+        ViewPropertyAnimator.animate(overlay)
+                .alpha(0)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        //
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        overlay.setVisibility(View.GONE);
                     }
                 })
                 .start();

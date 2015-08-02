@@ -12,7 +12,8 @@
     <color name="grey600">#757575</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="black_alpha">#1F000000</color>
+    <color name="black_alpha_12">#1F000000</color>
+    <color name="black_alpha_30">#4D000000</color>
 
     <!-- Others -->
     <color name="blue_accent200">#2979FF</color>

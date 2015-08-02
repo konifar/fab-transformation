@@ -16,6 +16,8 @@ public class TransformToSheetActivity extends BaseActivity {
     FloatingActionButton fab;
     @InjectView(R.id.sheet)
     View sheet;
+    @InjectView(R.id.overlay)
+    View overlay;
 
     public static void start(Context context, String title) {
         Intent intent = new Intent(context, TransformToSheetActivity.class);
@@ -36,14 +38,21 @@ public class TransformToSheetActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).transformIn(sheet);
+            FabTransformation.with(fab).setOverlay(overlay).transformIn(sheet);
         }
     }
 
     @OnClick(R.id.sheet)
     void onClickSheet() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).transformOut(sheet);
+            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
+        }
+    }
+
+    @OnClick(R.id.overlay)
+    void onClickOverlay() {
+        if (fab.getVisibility() != View.VISIBLE) {
+            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
         }
     }
 
