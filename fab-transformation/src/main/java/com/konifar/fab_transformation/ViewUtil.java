@@ -1,15 +1,8 @@
 package com.konifar.fab_transformation;
 
-import android.content.Context;
-import android.util.TypedValue;
 import android.view.View;
 
 public class ViewUtil {
-
-    public static float dpToPx(Context context, float value) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
-                context.getResources().getDisplayMetrics());
-    }
 
     public static int getRelativeLeft(View view) {
         if (view.getParent() == view.getRootView())
