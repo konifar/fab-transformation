@@ -16,8 +16,8 @@ public class FabAnimatorLollipop extends FabAnimator {
                 transformView,
                 getCenterX(fab, transformView),
                 getCenterY(fab, transformView),
-                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()),
-                fab.getWidth());
+                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2,
+                fab.getWidth() / 2);
         animator.setInterpolator(REVEAL_INTERPOLATOR);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -42,7 +42,7 @@ public class FabAnimatorLollipop extends FabAnimator {
             }
         });
         if (transformView.getVisibility() == View.VISIBLE) {
-            animator.setDuration(REVEAL_ANIMATION_DURATION);
+            animator.setDuration(getRevealAnimationDuration());
             animator.start();
             transformView.setEnabled(true);
         }
@@ -54,8 +54,8 @@ public class FabAnimatorLollipop extends FabAnimator {
                 transformView,
                 getCenterX(fab, transformView),
                 getCenterY(fab, transformView),
-                fab.getWidth(),
-                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()));
+                fab.getWidth() / 2,
+                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2);
         transformView.setVisibility(View.VISIBLE);
         animator.setInterpolator(REVEAL_INTERPOLATOR);
         animator.addListener(new Animator.AnimatorListener() {
@@ -80,7 +80,7 @@ public class FabAnimatorLollipop extends FabAnimator {
             }
         });
         if (transformView.getVisibility() == View.VISIBLE) {
-            animator.setDuration(REVEAL_ANIMATION_DURATION);
+            animator.setDuration(getRevealAnimationDuration());
             animator.start();
             transformView.setEnabled(true);
         }
@@ -90,10 +90,12 @@ public class FabAnimatorLollipop extends FabAnimator {
     @Override
     final void fabMoveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
         fab.animate()
+                .scaleX(1)
+                .scaleY(1)
                 .translationX(0)
                 .translationY(0)
                 .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setDuration(FAB_ANIMATION_DURATION)
+                .setDuration(getFabAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -122,10 +124,12 @@ public class FabAnimatorLollipop extends FabAnimator {
     @Override
     final void fabMoveIn(final View fab, View transformView, final FabAnimationCallback callback) {
         fab.animate()
+                .scaleX(FAB_SCALE)
+                .scaleY(FAB_SCALE)
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))
                 .setInterpolator(REVEAL_INTERPOLATOR)
-                .setDuration(REVEAL_ANIMATION_DURATION)
+                .setDuration(getRevealAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {

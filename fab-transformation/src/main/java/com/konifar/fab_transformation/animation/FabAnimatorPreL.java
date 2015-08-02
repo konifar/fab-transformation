@@ -2,7 +2,6 @@ package com.konifar.fab_transformation.animation;
 
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -18,8 +17,8 @@ public class FabAnimatorPreL extends FabAnimator {
                 transformView,
                 getCenterX(fab, transformView),
                 getCenterY(fab, transformView),
-                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()),
-                fab.getWidth());
+                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2,
+                fab.getWidth() / 2);
         animator.setInterpolator(REVEAL_INTERPOLATOR);
         animator.addListener(new SupportAnimator.AnimatorListener() {
             @Override
@@ -44,7 +43,7 @@ public class FabAnimatorPreL extends FabAnimator {
             }
         });
         if (transformView.getVisibility() == View.VISIBLE) {
-            animator.setDuration(REVEAL_ANIMATION_DURATION);
+            animator.setDuration((int) getRevealAnimationDuration());
             animator.start();
             transformView.setEnabled(true);
         }
@@ -56,8 +55,8 @@ public class FabAnimatorPreL extends FabAnimator {
                 transformView,
                 getCenterX(fab, transformView),
                 getCenterY(fab, transformView),
-                fab.getWidth(),
-                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()));
+                fab.getWidth() / 2,
+                (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2);
         transformView.setVisibility(View.VISIBLE);
         animator.setInterpolator(FAB_INTERPOLATOR);
         animator.addListener(new SupportAnimator.AnimatorListener() {
@@ -82,7 +81,7 @@ public class FabAnimatorPreL extends FabAnimator {
             }
         });
         if (transformView.getVisibility() == View.VISIBLE) {
-            animator.setDuration(REVEAL_ANIMATION_DURATION);
+            animator.setDuration((int) getRevealAnimationDuration());
             animator.start();
             transformView.setEnabled(true);
         }
@@ -91,10 +90,12 @@ public class FabAnimatorPreL extends FabAnimator {
     @Override
     final void fabMoveOut(final View fab, final View transformView, final FabAnimationCallback callback) {
         ViewPropertyAnimator.animate(fab)
+                .scaleX(1)
+                .scaleY(1)
                 .translationX(0)
                 .translationY(0)
                 .setInterpolator(new AccelerateDecelerateInterpolator())
-                .setDuration(FAB_ANIMATION_DURATION)
+                .setDuration(getFabAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -122,10 +123,12 @@ public class FabAnimatorPreL extends FabAnimator {
     @Override
     final void fabMoveIn(final View fab, final View transformView, final FabAnimationCallback callback) {
         ViewPropertyAnimator.animate(fab)
+                .scaleX(FAB_SCALE)
+                .scaleY(FAB_SCALE)
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))
-                .setInterpolator(new AccelerateInterpolator())
-                .setDuration(FAB_ANIMATION_DURATION)
+                .setInterpolator(FAB_INTERPOLATOR)
+                .setDuration(getFabAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
