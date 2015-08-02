@@ -10,24 +10,22 @@ import com.konifar.fab_transformation.FabTransformation;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class TransformToSheetActivity extends BaseActivity {
+public class TransformToPlayerActivity extends BaseActivity {
 
     @InjectView(R.id.fab)
     FloatingActionButton fab;
-    @InjectView(R.id.sheet)
-    View sheet;
-    @InjectView(R.id.overlay)
-    View overlay;
+    @InjectView(R.id.container_player)
+    View containerPlayer;
 
     public static void start(Context context, String title) {
-        Intent intent = new Intent(context, TransformToSheetActivity.class);
+        Intent intent = new Intent(context, TransformToPlayerActivity.class);
         intent.putExtra(EXTRA_TITLE, title);
         context.startActivity(intent);
     }
 
     @Override
     int getLayoutResId() {
-        return R.layout.activity_transform_to_sheet;
+        return R.layout.activity_transform_to_player;
     }
 
     @Override
@@ -38,21 +36,21 @@ public class TransformToSheetActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformIn(sheet);
+            FabTransformation.with(fab).transformIn(containerPlayer);
         }
     }
 
-    @OnClick(R.id.overlay)
-    void onClickOverlay() {
+    @OnClick(R.id.container_player)
+    void onClickSheet() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
+            FabTransformation.with(fab).transformOut(containerPlayer);
         }
     }
 
     @Override
     public void onBackPressed() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
+            FabTransformation.with(fab).transformOut(containerPlayer);
             return;
         }
         super.onBackPressed();

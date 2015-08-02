@@ -60,11 +60,10 @@ public abstract class FabAnimator {
 
             @Override
             public void onAnimationEnd() {
-                fab.setVisibility(View.INVISIBLE);
                 revealOn(fab, transformView, new RevealCallback() {
                     @Override
                     public void onRevealStart() {
-                        //
+                        fab.setVisibility(View.INVISIBLE);
                     }
 
                     @Override

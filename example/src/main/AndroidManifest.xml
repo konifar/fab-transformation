@@ -26,6 +26,11 @@
             android:name=".TransformToToolbarActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" />
+
+        <activity
+            android:name=".TransformToPlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
