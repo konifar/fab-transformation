@@ -1,18 +1,19 @@
 package com.konifar.fab_transformation.animation;
 
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-
-import com.konifar.fab_transformation.ViewUtil;
 
 public abstract class FabAnimator {
 
-    static final long FAB_ANIMATION_DURATION = 150L;
-    static final int REVEAL_ANIMATION_DURATION = 350;
+    static final long FAB_ANIMATION_DURATION = 100L;
+    static final int REVEAL_ANIMATION_DURATION = 150;
     static final Interpolator REVEAL_INTERPOLATOR = new AccelerateInterpolator();
     static final Interpolator FAB_INTERPOLATOR = new AccelerateDecelerateInterpolator();
+    static final Interpolator COLOR_INTERPOLATOR = new DecelerateInterpolator();
 
     abstract void fabMoveIn(View fab, View transformView, FabAnimationCallback callback);
 
@@ -60,6 +61,7 @@ public abstract class FabAnimator {
         revealOff(fab, transformView, new RevealCallback() {
             @Override
             public void onRevealStart() {
+                //
             }
 
             @Override
@@ -110,8 +112,8 @@ public abstract class FabAnimator {
         if (fabCenterX > transformViewCenterX) {
             // Fab is on right of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (-translationX >= fabWidth / 2) {
-                translationX = -fabWidth / 2;
+            if (-translationX >= fabWidth / 4) {
+                translationX = -fabWidth / 4;
             }
             if (-translationX < fabRight - transformViewRight) {
                 translationX = -(fabRight - transformViewRight + fabWidth / 2);
@@ -120,8 +122,8 @@ public abstract class FabAnimator {
         } else if (fabCenterX < transformViewCenterX) {
             // Fab is on left of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (translationX >= fabWidth / 2) {
-                translationX = fabWidth / 2;
+            if (translationX >= fabWidth / 4) {
+                translationX = fabWidth / 4;
             }
             if (translationX > transformViewLeft - fabLeft) {
                 translationX = transformViewLeft - fabLeft + fabWidth / 2;
@@ -146,21 +148,22 @@ public abstract class FabAnimator {
         if (fabCenterY > transformViewCenterY) {
             // Fab is on below of transform view
             int translationY = transformViewCenterY - fabCenterY;
-            if (-translationY >= fabHeight / 2) {
-                translationY = -fabHeight / 2;
+            if (-translationY >= fabHeight / 4) {
+                translationY = -fabHeight / 4;
             }
             if (-translationY < fabBottom - transformViewBottom) {
-                translationY = -(fabBottom - transformViewBottom + fabHeight / 2);
+                Log.e("hogehoge", "fabBottom: " + fabBottom + ", transformViewBottom: " + transformViewBottom + ", translationY: " + translationY);
+                translationY = -(fabBottom - transformViewBottom + fabHeight / 8);
             }
             return translationY;
         } else if (fabCenterY < transformViewCenterY) {
             // Fab is on above of transform view
             int translationY = transformViewCenterY - fabCenterY;
-            if (translationY >= fabHeight / 2) {
-                translationY = fabHeight / 2;
+            if (translationY >= fabHeight / 4) {
+                translationY = fabHeight / 4;
             }
             if (translationY > transformViewTop - fabTop) {
-                translationY = transformViewTop - fabTop + fabHeight / 2;
+                translationY = transformViewTop - fabTop + fabHeight / 8;
             }
             return translationY;
         } else {

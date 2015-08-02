@@ -32,6 +32,68 @@
         android:src="@drawable/ic_add_black_24dp"
         app:backgroundTint="@color/accent200"
         app:borderWidth="0dp" />
+
+    <io.codetail.widget.RevealFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing"
+            android:visibility="invisible"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/part_sheet_list" />
+
+                <include layout="@layout/part_sheet_list" />
+
+                <include layout="@layout/part_sheet_list" />
+
+                <include layout="@layout/part_sheet_list" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/accent200"
+                    android:paddingBottom="@dimen/spacing_small"
+                    android:paddingLeft="@dimen/spacing"
+                    android:paddingRight="@dimen/spacing"
+                    android:paddingTop="@dimen/spacing_small">
+
+                    <ImageView
+                        android:id="@+id/img_icon"
+                        android:layout_width="@dimen/img_thumb"
+                        android:layout_height="@dimen/img_thumb"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_edit_grey_900_24dp" />
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        style="@style/TextContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/spacing"
+                        android:layout_toRightOf="@id/img_icon"
+                        android:text="Compose New" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </io.codetail.widget.RevealFrameLayout>
+
 </RelativeLayout>
 
 

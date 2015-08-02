@@ -13,7 +13,7 @@
     <dimen name="line_small">1sp</dimen>
 
     <!-- Component -->
-    <dimen name="img_thumb">60dp</dimen>
-    <dimen name="img_thumb_large">120dp</dimen>
+    <dimen name="img_thumb">40dp</dimen>
+    <dimen name="img_thumb_large">100dp</dimen>
     <dimen name="footer">64dp</dimen>
 </resources>

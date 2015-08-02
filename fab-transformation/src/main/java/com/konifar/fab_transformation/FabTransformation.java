@@ -17,7 +17,6 @@ public class FabTransformation {
 
     public static class Builder {
         private View fab;
-        private View transformView;
         private FabAnimator animator;
 
         public Builder(View fab) {
@@ -25,12 +24,7 @@ public class FabTransformation {
             this.animator = IS_PRE_LOLLIPOP ? new FabAnimatorPreL() : new FabAnimatorLollipop();
         }
 
-        public Builder setTransformView(View transformView) {
-            this.transformView = transformView;
-            return this;
-        }
-
-        public void transformIn() {
+        public void transformIn(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
@@ -39,7 +33,7 @@ public class FabTransformation {
             }
         }
 
-        public void transformOut() {
+        public void transformOut(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
