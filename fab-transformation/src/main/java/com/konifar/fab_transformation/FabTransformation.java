@@ -1,9 +1,7 @@
 package com.konifar.fab_transformation;
 
 import android.animation.Animator;
-import android.content.Context;
 import android.os.Build;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -14,24 +12,87 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 import io.codetail.animation.SupportAnimator;
 
 public class FabTransformation {
-    private static void moveIn(final View fab, View view,
+    private static void moveIn(final View fab, View transformView,
                                com.nineoldandroids.animation.Animator.AnimatorListener listener) {
-        int marginRight;
-        int marginBottom;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            marginRight = 16;
-            marginBottom = 16;
-        } else {
-            marginRight = 8;
-            marginBottom = 0;
-        }
         ViewPropertyAnimator.animate(fab)
-                .translationX(-(view.getWidth() / 2) + (fab.getWidth() / 2) + dpToPx(view.getContext(), marginRight))
-                .translationY(-(view.getHeight() / 2) + (fab.getHeight() / 2) + dpToPx(view.getContext(), marginBottom))
+                .translationX(getTranslationX(fab, transformView))
+                .translationY(getTranslationY(fab, transformView))
                 .setInterpolator(new AccelerateInterpolator())
                 .setDuration(150L)
                 .setListener(listener)
                 .start();
+    }
+
+    private static int getTranslationX(View fab, View transformView) {
+        int fabWidth = fab.getWidth();
+        int fabLeft = ViewUtil.getRelativeLeft(fab);
+        int fabRight = fabLeft + fabWidth;
+        int fabCenterX = fabLeft + fabWidth / 2;
+        int transformViewWidth = transformView.getWidth();
+        int transformViewLeft = ViewUtil.getRelativeLeft(transformView);
+        int transformViewRight = transformViewLeft + transformViewWidth;
+        int transformViewCenterX = transformViewLeft + transformViewWidth / 2;
+
+        if (fabCenterX > transformViewCenterX) {
+            // Fab is on right of transform view
+            int translationX = transformViewCenterX - fabCenterX;
+            if (-translationX >= fabWidth / 2) {
+                translationX = -fabWidth / 2;
+            }
+            if (-translationX < fabRight - transformViewRight) {
+                translationX = -(fabRight - transformViewRight + fabWidth / 2);
+            }
+            return translationX;
+        } else if (fabCenterX < transformViewCenterX) {
+            // Fab is on left of transform view
+            int translationX = transformViewCenterX - fabCenterX;
+            if (translationX >= fabWidth / 2) {
+                translationX = fabWidth / 2;
+            }
+            if (translationX > transformViewLeft - fabLeft) {
+                translationX = transformViewLeft - fabLeft + fabWidth / 2;
+            }
+            return translationX;
+        } else {
+            // Fab is same position with transform view
+            return 0;
+        }
+    }
+
+    private static int getTranslationY(View fab, View transformView) {
+        int fabHeight = fab.getHeight();
+        int fabTop = ViewUtil.getRelativeTop(fab);
+        int fabBottom = fabTop + fabHeight;
+        int fabCenterY = fabTop + fabHeight / 2;
+        int transformViewHeight = transformView.getHeight();
+        int transformViewTop = ViewUtil.getRelativeTop(transformView);
+        int transformViewBottom = transformViewTop + transformViewHeight;
+        int transformViewCenterY = transformViewTop + transformViewHeight / 2;
+
+        if (fabCenterY > transformViewCenterY) {
+            // Fab is on below of transform view
+            int translationY = transformViewCenterY - fabCenterY;
+            if (-translationY >= fabHeight / 2) {
+                translationY = -fabHeight / 2;
+            }
+            if (-translationY < fabBottom - transformViewBottom) {
+                translationY = -(fabBottom - transformViewBottom + fabHeight / 2);
+            }
+            return translationY;
+        } else if (fabCenterY < transformViewCenterY) {
+            // Fab is on above of transform view
+            int translationY = transformViewCenterY - fabCenterY;
+            if (translationY >= fabHeight / 2) {
+                translationY = fabHeight / 2;
+            }
+            if (translationY > transformViewTop - fabTop) {
+                translationY = transformViewTop - fabTop + fabHeight / 2;
+            }
+            return translationY;
+        } else {
+            // Fab is same position with transform view
+            return 0;
+        }
     }
 
     private static void moveOut(final View fab, com.nineoldandroids.animation.Animator.AnimatorListener listener) {
@@ -111,11 +172,14 @@ public class FabTransformation {
     }
 
     private static void revealOn(final View fab, View transformView, final RevealCallback callback) {
+        int centerX = ViewUtil.getRelativeLeft(fab) - ViewUtil.getRelativeLeft(transformView) + fab.getWidth() / 2;
+        int centerY = ViewUtil.getRelativeTop(fab) - ViewUtil.getRelativeTop(transformView) + fab.getHeight() / 2;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Animator animator = ViewAnimationUtils.createCircularReveal(
                     transformView,
-                    transformView.getWidth() / 2,
-                    transformView.getHeight() / 2,
+                    centerX,
+                    centerY,
                     fab.getWidth(),
                     (float) Math.hypot(transformView.getWidth(), transformView.getHeight()));
             transformView.setVisibility(View.VISIBLE);
@@ -148,8 +212,8 @@ public class FabTransformation {
             SupportAnimator animator =
                     io.codetail.animation.ViewAnimationUtils.createCircularReveal(
                             transformView,
-                            transformView.getWidth() / 2,
-                            transformView.getHeight() / 2,
+                            centerX,
+                            centerY,
                             fab.getWidth(),
                             (float) Math.hypot(transformView.getWidth(), transformView.getHeight()));
             transformView.setVisibility(View.VISIBLE);
@@ -182,12 +246,15 @@ public class FabTransformation {
     }
 
     private static void revealOff(final View fab, final View transformView, final RevealCallback callback) {
+        int centerX = ViewUtil.getRelativeLeft(fab) - ViewUtil.getRelativeLeft(transformView) + fab.getWidth() / 2;
+        int centerY = ViewUtil.getRelativeTop(fab) - ViewUtil.getRelativeTop(transformView) + fab.getHeight() / 2;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             SupportAnimator animator =
                     io.codetail.animation.ViewAnimationUtils.createCircularReveal(
                             transformView,
-                            transformView.getWidth() / 2,
-                            transformView.getHeight() / 2,
+                            centerX,
+                            centerY,
                             (float) Math.hypot(transformView.getWidth(), transformView.getHeight()),
                             fab.getWidth());
             animator.setInterpolator(new AccelerateInterpolator());
@@ -220,8 +287,8 @@ public class FabTransformation {
             SupportAnimator animator =
                     io.codetail.animation.ViewAnimationUtils.createCircularReveal(
                             transformView,
-                            transformView.getWidth() / 2,
-                            transformView.getHeight() / 2,
+                            centerX,
+                            centerY,
                             (float) Math.hypot(transformView.getWidth(), transformView.getHeight()),
                             fab.getWidth());
             animator.setInterpolator(new AccelerateInterpolator());
@@ -251,11 +318,6 @@ public class FabTransformation {
                 transformView.setEnabled(true);
             }
         }
-    }
-
-    private static float dpToPx(Context context, float value) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value,
-                context.getResources().getDisplayMetrics());
     }
 
     private interface RevealCallback {

@@ -34,6 +34,7 @@ android.libraryVariants.all { variant ->
 
 dependencies {
     compile 'com.nineoldandroids:library:2.4.0+'
+    compile 'com.github.asyl.animation:arcanimator:1.0.0'
 }
 
 apply from: 'android-artifacts.gradle'
