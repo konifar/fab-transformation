@@ -42,6 +42,31 @@ public class TransformToSheetActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.row_1)
+    void onClickRow1() {
+        AppUtil.showToast("Row 1 clicked!", this);
+    }
+
+    @OnClick(R.id.row_2)
+    void onClickRow2() {
+        AppUtil.showToast("Row 2 clicked!", this);
+    }
+
+    @OnClick(R.id.row_3)
+    void onClickRow3() {
+        AppUtil.showToast("Row 3 clicked!", this);
+    }
+
+    @OnClick(R.id.row_4)
+    void onClickRow4() {
+        AppUtil.showToast("Row 4 clicked!", this);
+    }
+
+    @OnClick(R.id.row_5)
+    void onClickRow5() {
+        AppUtil.showToast("Row 5 clicked!", this);
+    }
+
     @OnClick(R.id.overlay)
     void onClickOverlay() {
         if (fab.getVisibility() != View.VISIBLE) {
