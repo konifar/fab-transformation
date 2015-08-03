@@ -22,6 +22,149 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+            <include layout="@layout/part_user_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="72dp"
+                android:background="@color/grey200" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FabMargin"
@@ -56,6 +199,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_email_white_24dp" />
 
@@ -64,6 +209,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_content_copy_white_24dp" />
 
@@ -72,6 +219,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_account_balance_white_24dp" />
 
@@ -80,6 +229,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_location_on_white_24dp" />
 
@@ -88,6 +239,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_folder_shared_white_24dp" />
 

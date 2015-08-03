@@ -5,9 +5,11 @@
 
     <string name="title_sheet">To Sheet</string>
     <string name="title_toolbar">To Toolbar</string>
+    <string name="title_player">To Player</string>
 
     <string name="description_sheet">Transform to Sheet</string>
     <string name="description_toolbar">Transform to Toolbar</string>
+    <string name="description_player">Transform to Player</string>
 
     <string name="activity_transition_mills">200</string>
 </resources>

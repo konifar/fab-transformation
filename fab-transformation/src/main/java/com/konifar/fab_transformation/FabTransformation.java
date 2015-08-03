@@ -16,10 +16,18 @@ public class FabTransformation {
         return new Builder(fab);
     }
 
+    public interface OnTransformListener {
+        void onStartTransform();
+
+        void onEndTransform();
+    }
+
     public static class Builder {
         private View fab;
+        private View overlay;
         private FabAnimator animator;
         private long duration;
+        private OnTransformListener listener;
 
         public Builder(View fab) {
             this.fab = fab;
@@ -32,22 +40,33 @@ public class FabTransformation {
             return this;
         }
 
-        public void transformIn(View transformView) {
+        public Builder setListener(OnTransformListener listener) {
+            this.listener = listener;
+            return this;
+        }
+
+        public Builder setOverlay(View overlay) {
+            this.overlay = overlay;
+            return this;
+        }
+
+        public void transformTo(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
             if (fab.getVisibility() == View.VISIBLE) {
-                animator.transformIn(fab, transformView, duration);
+                animator.transformTo(fab, transformView, duration, overlay, listener);
             }
         }
 
-        public void transformOut(View transformView) {
+        public void transformFrom(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
             if (fab.getVisibility() != View.VISIBLE) {
-                animator.transformOut(fab, transformView, duration);
+                animator.transformOut(fab, transformView, duration, overlay, listener);
             }
         }
+
     }
 }

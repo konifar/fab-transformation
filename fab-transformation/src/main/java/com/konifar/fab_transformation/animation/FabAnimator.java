@@ -1,15 +1,19 @@
 package com.konifar.fab_transformation.animation;
 
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+
+import com.konifar.fab_transformation.FabTransformation;
 
 public abstract class FabAnimator {
 
     static final float FAB_SCALE = 1.2f;
     static final Interpolator REVEAL_INTERPOLATOR = new DecelerateInterpolator();
     static final Interpolator FAB_INTERPOLATOR = new AccelerateInterpolator();
+    static final Interpolator OVERLAY_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private long fabAnimationDuration;
     private long revealAnimationDuration;
 
@@ -20,6 +24,10 @@ public abstract class FabAnimator {
     abstract void revealOn(View fab, View transformView, RevealCallback callback);
 
     abstract void revealOff(View fab, View transformView, RevealCallback callback);
+
+    abstract void showOverlay(final View overlay);
+
+    abstract void hideOverlay(final View overlay);
 
     private void calculateDuration(View fab, View transformView, long duration) {
         int fabTranslationX = getTranslationX(fab, transformView);
@@ -40,27 +48,28 @@ public abstract class FabAnimator {
         return revealAnimationDuration;
     }
 
-    public void transformIn(final View fab, final View transformView, long duration) {
+    public void transformTo(final View fab, final View transformView, long duration, final View overlay,
+                            final FabTransformation.OnTransformListener listener) {
         calculateDuration(fab, transformView, duration);
 
         fabMoveIn(fab, transformView, new FabAnimationCallback() {
             @Override
             public void onAnimationStart() {
-                //
+                if (overlay != null) showOverlay(overlay);
+                if (listener != null) listener.onStartTransform();
             }
 
             @Override
             public void onAnimationEnd() {
-                fab.setVisibility(View.INVISIBLE);
                 revealOn(fab, transformView, new RevealCallback() {
                     @Override
                     public void onRevealStart() {
-                        //
+                        fab.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
                     public void onRevealEnd() {
-                        //
+                        if (listener != null) listener.onEndTransform();
                     }
                 });
             }
@@ -77,13 +86,16 @@ public abstract class FabAnimator {
         });
     }
 
-    public void transformOut(final View fab, final View transformView, long duration) {
+    public void transformOut(final View fab, final View transformView, long duration, final View overlay,
+                             final FabTransformation.OnTransformListener listener) {
         calculateDuration(fab, transformView, duration);
+
+        if (overlay != null) hideOverlay(overlay);
 
         revealOff(fab, transformView, new RevealCallback() {
             @Override
             public void onRevealStart() {
-                //
+                if (listener != null) listener.onStartTransform();
             }
 
             @Override
@@ -96,7 +108,7 @@ public abstract class FabAnimator {
 
                     @Override
                     public void onAnimationEnd() {
-                        //
+                        if (listener != null) listener.onEndTransform();
                     }
 
                     @Override
@@ -136,8 +148,8 @@ public abstract class FabAnimator {
         if (fabCenterX > transformViewCenterX) {
             // Fab is on right of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (-translationX >= fabWidth / 2) {
-                translationX = -fabWidth / 2;
+            if (-translationX >= fabWidth) {
+                translationX = -fabWidth;
             }
             if (-translationX < fabRight - transformViewRight) {
                 translationX = -(fabRight - transformViewRight + fabWidth / 2);
@@ -146,8 +158,8 @@ public abstract class FabAnimator {
         } else if (fabCenterX < transformViewCenterX) {
             // Fab is on left of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (translationX >= fabWidth / 2) {
-                translationX = fabWidth / 2;
+            if (translationX >= fabWidth) {
+                translationX = fabWidth;
             }
             if (translationX > transformViewLeft - fabLeft) {
                 translationX = transformViewLeft - fabLeft + fabWidth / 2;

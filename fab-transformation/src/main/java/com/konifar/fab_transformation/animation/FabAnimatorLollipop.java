@@ -1,11 +1,11 @@
 package com.konifar.fab_transformation.animation;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
 public class FabAnimatorLollipop extends FabAnimator {
 
@@ -94,7 +94,7 @@ public class FabAnimatorLollipop extends FabAnimator {
                 .scaleY(1)
                 .translationX(0)
                 .translationY(0)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setInterpolator(FAB_INTERPOLATOR)
                 .setDuration(getFabAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -128,7 +128,7 @@ public class FabAnimatorLollipop extends FabAnimator {
                 .scaleY(FAB_SCALE)
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))
-                .setInterpolator(REVEAL_INTERPOLATOR)
+                .setInterpolator(FAB_INTERPOLATOR)
                 .setDuration(getRevealAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -149,6 +149,48 @@ public class FabAnimatorLollipop extends FabAnimator {
                     @Override
                     public void onAnimationRepeat(Animator animation) {
                         callback.onAnimationRepeat();
+                    }
+                })
+                .start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    void showOverlay(final View overlay) {
+        overlay.animate()
+                .alpha(1)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        overlay.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        //
+                    }
+                })
+                .start();
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Override
+    void hideOverlay(final View overlay) {
+        overlay.animate()
+                .alpha(0)
+                .setDuration(getRevealAnimationDuration())
+                .setInterpolator(OVERLAY_INTERPOLATOR)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        //
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        overlay.setVisibility(View.GONE);
                     }
                 })
                 .start();

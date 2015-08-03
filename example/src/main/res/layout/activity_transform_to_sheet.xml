@@ -22,6 +22,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_bar"
+        android:background="@color/black_alpha_30"
+        android:clickable="true"
+        android:visibility="gone" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/FabMargin"
@@ -48,19 +57,28 @@
             app:cardElevation="2dp">
 
             <LinearLayout
-                android:layout_width="200dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/part_sheet_list" />
+                <include
+                    android:id="@+id/row_1"
+                    layout="@layout/part_sheet_list" />
 
-                <include layout="@layout/part_sheet_list" />
+                <include
+                    android:id="@+id/row_2"
+                    layout="@layout/part_sheet_list" />
 
-                <include layout="@layout/part_sheet_list" />
+                <include
+                    android:id="@+id/row_3"
+                    layout="@layout/part_sheet_list" />
 
-                <include layout="@layout/part_sheet_list" />
+                <include
+                    android:id="@+id/row_4"
+                    layout="@layout/part_sheet_list" />
 
                 <RelativeLayout
+                    android:id="@+id/row_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/accent200"
