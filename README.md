@@ -1,5 +1,4 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/konifar/fab-transformation/blob/master/LICENSE)
-
 [ ![Download](https://api.bintray.com/packages/konifar/maven/fab-transformation/images/download.svg) ](https://bintray.com/konifar/maven/fab-transformation/_latestVersion)
 
 # Fab Transformation
