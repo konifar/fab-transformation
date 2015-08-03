@@ -38,7 +38,7 @@ public class TransformToSheetActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformIn(sheet);
+            FabTransformation.with(fab).setOverlay(overlay).transformTo(sheet);
         }
     }
 
@@ -70,14 +70,14 @@ public class TransformToSheetActivity extends BaseActivity {
     @OnClick(R.id.overlay)
     void onClickOverlay() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
+            FabTransformation.with(fab).setOverlay(overlay).transformFrom(sheet);
         }
     }
 
     @Override
     public void onBackPressed() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).setOverlay(overlay).transformOut(sheet);
+            FabTransformation.with(fab).setOverlay(overlay).transformFrom(sheet);
             return;
         }
         super.onBackPressed();

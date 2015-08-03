@@ -48,7 +48,7 @@ public abstract class FabAnimator {
         return revealAnimationDuration;
     }
 
-    public void transformIn(final View fab, final View transformView, long duration, final View overlay,
+    public void transformTo(final View fab, final View transformView, long duration, final View overlay,
                             final FabTransformation.OnTransformListener listener) {
         calculateDuration(fab, transformView, duration);
 
