@@ -36,21 +36,21 @@ public class TransformToPlayerActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).transformIn(containerPlayer);
+            FabTransformation.with(fab).transformTo(containerPlayer);
         }
     }
 
     @OnClick(R.id.container_player)
     void onClickSheet() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).transformOut(containerPlayer);
+            FabTransformation.with(fab).transformFrom(containerPlayer);
         }
     }
 
     @Override
     public void onBackPressed() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).transformOut(containerPlayer);
+            FabTransformation.with(fab).transformFrom(containerPlayer);
             return;
         }
         super.onBackPressed();

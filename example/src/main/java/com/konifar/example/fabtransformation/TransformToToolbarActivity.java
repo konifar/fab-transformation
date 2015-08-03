@@ -53,7 +53,7 @@ public class TransformToToolbarActivity extends BaseActivity {
                                             isTransforming = false;
                                         }
                                     })
-                                    .transformOut(toolbarFooter);
+                                    .transformFrom(toolbarFooter);
                         }
                     }
                 });
@@ -62,21 +62,14 @@ public class TransformToToolbarActivity extends BaseActivity {
     @OnClick(R.id.fab)
     void onClickFab() {
         if (fab.getVisibility() == View.VISIBLE) {
-            FabTransformation.with(fab).transformIn(toolbarFooter);
-        }
-    }
-
-    @OnClick(R.id.toolbar_footer)
-    void onClickToolbarFooter() {
-        if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).transformOut(toolbarFooter);
+            FabTransformation.with(fab).transformTo(toolbarFooter);
         }
     }
 
     @Override
     public void onBackPressed() {
         if (fab.getVisibility() != View.VISIBLE) {
-            FabTransformation.with(fab).transformOut(toolbarFooter);
+            FabTransformation.with(fab).transformFrom(toolbarFooter);
             return;
         }
         super.onBackPressed();

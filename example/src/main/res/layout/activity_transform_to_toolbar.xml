@@ -199,6 +199,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_email_white_24dp" />
 
@@ -207,6 +209,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_content_copy_white_24dp" />
 
@@ -215,6 +219,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_account_balance_white_24dp" />
 
@@ -223,6 +229,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_location_on_white_24dp" />
 
@@ -231,6 +239,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_feedback"
+                    android:clickable="true"
                     android:scaleType="center"
                     android:src="@drawable/ic_folder_shared_white_24dp" />
 

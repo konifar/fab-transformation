@@ -1,6 +1,7 @@
 package com.konifar.fab_transformation.animation;
 
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -12,7 +13,7 @@ public abstract class FabAnimator {
     static final float FAB_SCALE = 1.2f;
     static final Interpolator REVEAL_INTERPOLATOR = new DecelerateInterpolator();
     static final Interpolator FAB_INTERPOLATOR = new AccelerateInterpolator();
-    static final Interpolator OVERLAY_INTERPOLATOR = new AccelerateInterpolator();
+    static final Interpolator OVERLAY_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private long fabAnimationDuration;
     private long revealAnimationDuration;
 
@@ -47,7 +48,7 @@ public abstract class FabAnimator {
         return revealAnimationDuration;
     }
 
-    public void transformIn(final View fab, final View transformView, long duration, final View overlay,
+    public void transformTo(final View fab, final View transformView, long duration, final View overlay,
                             final FabTransformation.OnTransformListener listener) {
         calculateDuration(fab, transformView, duration);
 
@@ -147,8 +148,8 @@ public abstract class FabAnimator {
         if (fabCenterX > transformViewCenterX) {
             // Fab is on right of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (-translationX >= fabWidth / 2) {
-                translationX = -fabWidth / 2;
+            if (-translationX >= fabWidth) {
+                translationX = -fabWidth;
             }
             if (-translationX < fabRight - transformViewRight) {
                 translationX = -(fabRight - transformViewRight + fabWidth / 2);
@@ -157,8 +158,8 @@ public abstract class FabAnimator {
         } else if (fabCenterX < transformViewCenterX) {
             // Fab is on left of transform view
             int translationX = transformViewCenterX - fabCenterX;
-            if (translationX >= fabWidth / 2) {
-                translationX = fabWidth / 2;
+            if (translationX >= fabWidth) {
+                translationX = fabWidth;
             }
             if (translationX > transformViewLeft - fabLeft) {
                 translationX = transformViewLeft - fabLeft + fabWidth / 2;

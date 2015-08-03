@@ -50,16 +50,16 @@ public class FabTransformation {
             return this;
         }
 
-        public void transformIn(View transformView) {
+        public void transformTo(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
             if (fab.getVisibility() == View.VISIBLE) {
-                animator.transformIn(fab, transformView, duration, overlay, listener);
+                animator.transformTo(fab, transformView, duration, overlay, listener);
             }
         }
 
-        public void transformOut(View transformView) {
+        public void transformFrom(View transformView) {
             if (transformView == null) {
                 throw new IllegalStateException("transformView is not set.");
             }
