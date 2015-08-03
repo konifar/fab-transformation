@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
 public class FabAnimatorLollipop extends FabAnimator {
 
@@ -95,7 +94,7 @@ public class FabAnimatorLollipop extends FabAnimator {
                 .scaleY(1)
                 .translationX(0)
                 .translationY(0)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
+                .setInterpolator(FAB_INTERPOLATOR)
                 .setDuration(getFabAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -129,7 +128,7 @@ public class FabAnimatorLollipop extends FabAnimator {
                 .scaleY(FAB_SCALE)
                 .translationX(getTranslationX(fab, transformView))
                 .translationY(getTranslationY(fab, transformView))
-                .setInterpolator(REVEAL_INTERPOLATOR)
+                .setInterpolator(FAB_INTERPOLATOR)
                 .setDuration(getRevealAnimationDuration())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
