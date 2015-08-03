@@ -7,6 +7,12 @@ This library supports Floating Action Button transformation in [Material Design 
 ![Demo1](art/transform_to_toolbar.gif)
 ![Demo2](art/transform_to_sheet.gif)
 
+# Sample App
+<a href="https://play.google.com/store/apps/details?id=com.konifar.example.fabtransformation">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+</a>
+
 # Installation
 Add the dependency (jcenter) to your `build.gradle`.
 ```groovy
