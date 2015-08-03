@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -9,26 +20,63 @@ android {
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
-        renderscriptTargetApi RENDERSCRIPT_TARGET_API as int
-        renderscriptSupportModeEnabled true
     }
 }
 
-android.libraryVariants.all { variant ->
-    if (variant.buildType.isDebuggable()) {
-        return; // Skip debug builds.
-    }
-    task("javadoc${variant.name.capitalize()}", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
-        source = variant.javaCompile.source
-        ext.androidJar = System.getenv("ANDROID_HOME") + "/platforms/${android.compileSdkVersion}/android.jar"
-        classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-    }
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
-    task("bundleJavadoc${variant.name.capitalize()}", type: Jar) {
-        description "Bundles Javadoc into zip for $variant.name."
-        classifier = "javadoc"
-        from tasks["javadoc${variant.name.capitalize()}"]
+group = 'konifar'
+version = '1.0.0'
+def siteUrl = 'https://github.com/konifar/fab-transformation'
+def gitUrl = 'https://github.com/konifar/fab-transformation.git'
+
+bintray {
+    user = ''
+    key = ''
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'fab-transformation'
+        desc = 'Support Floating Action Button transformation for Android.'
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'https://github.com/konifar/fab-transformation/issues'
+        vcsUrl = gitUrl
+        licenses = ['MIT']
+        labels = ['android']
+        publicDownloadNumbers = true
+    }
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'fab-transformation'
+                url siteUrl
+                artifactId 'fab-transformation'
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'http://opensource.org/licenses/mit-license.php'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'konifar'
+                        name 'Yusuke Konishi'
+                        email 'yahpeycoy0403@gmail.com'
+                    }
+                }
+                scm {
+                    connection 'https://github.com/konifar/fab-transformation.git'
+                    developerConnection 'https://github.com/konifar/fab-transformation.git'
+                    url siteUrl
+                }
+            }
+        }
     }
 }
 
@@ -36,6 +84,25 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0+'
 }
 
-apply from: 'android-artifacts.gradle'
-apply from: 'central-publish.gradle'
-apply from: 'bintray-publish.gradle'
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
