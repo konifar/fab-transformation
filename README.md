@@ -18,7 +18,7 @@ This library supports Floating Action Button transformation in [Material Design 
 Add the dependency (jcenter) to your `build.gradle`.
 ```groovy
 dependencies {
-    compile 'com.konifar:fab-transformation:1.0.0'
+    compile 'konifar:fab-transformation:1.0.0'
 }
 ```
 
