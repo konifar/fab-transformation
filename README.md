@@ -103,7 +103,7 @@ FabTransformation.with(fab)
 Android 2.3+
 
 # Credits
-This library use following libraries:
+This library use following libraries.
 * [CircularReveal](https://github.com/ozodrukh/CircularReveal)
 * [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)
 
