@@ -74,7 +74,7 @@ FabTransformation.with(fab)
                  .transformTo(toolbarFooter);
 ```
 
-### Transform other view from fab.
+### Transform other view to fab.
 ```java
 FabTransformation.with(fab)
                  .transformFrom(toolbarFooter);
