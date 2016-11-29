@@ -14,8 +14,8 @@ public class FabAnimatorLollipop extends FabAnimator {
     final void revealOff(final View fab, final View transformView, final RevealCallback callback) {
         Animator animator = ViewAnimationUtils.createCircularReveal(
                 transformView,
-                getCenterX(fab, transformView),
-                getCenterY(fab, transformView),
+                getCenterX(transformView),
+                getCenterY(transformView),
                 (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2,
                 fab.getWidth() / 2);
         animator.setInterpolator(REVEAL_INTERPOLATOR);
@@ -52,8 +52,8 @@ public class FabAnimatorLollipop extends FabAnimator {
     final void revealOn(final View fab, View transformView, final RevealCallback callback) {
         Animator animator = ViewAnimationUtils.createCircularReveal(
                 transformView,
-                getCenterX(fab, transformView),
-                getCenterY(fab, transformView),
+                getCenterX(transformView),
+                getCenterY(transformView),
                 fab.getWidth() / 2,
                 (float) Math.hypot(transformView.getWidth(), transformView.getHeight()) / 2);
         transformView.setVisibility(View.VISIBLE);
