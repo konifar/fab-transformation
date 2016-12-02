@@ -125,86 +125,24 @@ public abstract class FabAnimator {
         });
     }
 
-    int getCenterX(View fab, View transformView) {
-        int translationX = getTranslationX(fab, transformView);
-        return ViewUtil.getRelativeLeft(fab) - ViewUtil.getRelativeLeft(transformView) + fab.getWidth() / 2 + translationX;
+    int getCenterX(View view) {
+        return view.getWidth() / 2 + view.getLeft();
     }
 
-    int getCenterY(View fab, View transformView) {
-        int translationY = getTranslationY(fab, transformView);
-        return ViewUtil.getRelativeTop(fab) - ViewUtil.getRelativeTop(transformView) + fab.getHeight() / 2 + translationY;
+    int getCenterY(View view) {
+        return view.getHeight() / 2 + view.getTop();
     }
 
     int getTranslationX(View fab, View transformView) {
-        int fabWidth = fab.getWidth();
-        int fabLeft = ViewUtil.getRelativeLeft(fab);
-        int fabRight = fabLeft + fabWidth;
-        int fabCenterX = fabLeft + fabWidth / 2;
-        int transformViewWidth = transformView.getWidth();
-        int transformViewLeft = ViewUtil.getRelativeLeft(transformView);
-        int transformViewRight = transformViewLeft + transformViewWidth;
-        int transformViewCenterX = transformViewLeft + transformViewWidth / 2;
-
-        if (fabCenterX > transformViewCenterX) {
-            // Fab is on right of transform view
-            int translationX = transformViewCenterX - fabCenterX;
-            if (-translationX >= fabWidth) {
-                translationX = -fabWidth;
-            }
-            if (-translationX < fabRight - transformViewRight) {
-                translationX = -(fabRight - transformViewRight + fabWidth / 2);
-            }
-            return translationX;
-        } else if (fabCenterX < transformViewCenterX) {
-            // Fab is on left of transform view
-            int translationX = transformViewCenterX - fabCenterX;
-            if (translationX >= fabWidth) {
-                translationX = fabWidth;
-            }
-            if (translationX > transformViewLeft - fabLeft) {
-                translationX = transformViewLeft - fabLeft + fabWidth / 2;
-            }
-            return translationX;
-        } else {
-            // Fab is same position with transform view
-            return 0;
-        }
+        int fabX = ViewUtil.getRelativeLeft(fab) + fab.getWidth() / 2;
+        int transformViewX = ViewUtil.getRelativeLeft(transformView) + transformView.getWidth() / 2;
+        return transformViewX - fabX;
     }
 
     int getTranslationY(View fab, View transformView) {
-        int fabHeight = fab.getHeight();
-        int fabTop = ViewUtil.getRelativeTop(fab);
-        int fabBottom = fabTop + fabHeight;
-        int fabCenterY = fabTop + fabHeight / 2;
-        int transformViewHeight = transformView.getHeight();
-        int transformViewTop = ViewUtil.getRelativeTop(transformView);
-        int transformViewBottom = transformViewTop + transformViewHeight;
-        int transformViewCenterY = transformViewTop + transformViewHeight / 2;
-
-        if (fabCenterY > transformViewCenterY) {
-            // Fab is on below of transform view
-            int translationY = transformViewCenterY - fabCenterY;
-            if (-translationY >= fabHeight / 8) {
-                translationY = -fabHeight / 8;
-            }
-            if (-translationY < fabBottom - transformViewBottom) {
-                translationY = -(fabBottom - transformViewBottom);
-            }
-            return translationY;
-        } else if (fabCenterY < transformViewCenterY) {
-            // Fab is on above of transform view
-            int translationY = transformViewCenterY - fabCenterY;
-            if (translationY >= fabHeight / 8) {
-                translationY = fabHeight / 8;
-            }
-            if (translationY < transformViewTop - fabTop) {
-                translationY = transformViewTop - fabTop;
-            }
-            return translationY;
-        } else {
-            // Fab is same position with transform view
-            return 0;
-        }
+        int fabY = ViewUtil.getRelativeTop(fab) + fab.getHeight() / 2;
+        int transformViewY = ViewUtil.getRelativeTop(transformView) + transformView.getHeight() / 2;
+        return transformViewY - fabY;
     }
 
     interface RevealCallback {
